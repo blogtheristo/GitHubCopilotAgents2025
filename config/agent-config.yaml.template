@@ -1,0 +1,281 @@
+# Agent Configuration Template
+
+## Overview
+This configuration file defines how to set up an AI agent with specific business capabilities (prowess) and technical skills for your organization.
+
+## Configuration Structure
+
+```yaml
+# agent-config.yaml
+agent:
+  name: "CustomerServiceAgent"
+  description: "Automated customer service agent for 24/7 support"
+  version: "1.0.0"
+  
+# Business Capabilities (Prowess)
+prowess:
+  primary: "customer_service_automation"
+  secondary:
+    - "data_analysis_insights"  # For analyzing customer feedback
+  
+# Technical Skills
+skills:
+  - name: "nlp_understanding"
+    config:
+      languages: ["en", "fi", "sv"]
+      confidence_threshold: 0.8
+  
+  - name: "intent_classification"
+    config:
+      intents:
+        - "order_inquiry"
+        - "technical_support"
+        - "complaint"
+        - "feedback"
+        - "refund_request"
+  
+  - name: "knowledge_retrieval"
+    config:
+      knowledge_base: "customer_support_kb"
+      update_frequency: "daily"
+
+# Integrations (Where People Already Are)
+integrations:
+  - type: "slack"
+    config:
+      workspace: "your-workspace"
+      channels:
+        - "#customer-support"
+        - "#sales-inquiries"
+      bot_name: "SupportBot"
+      response_mode: "threaded"
+  
+  - type: "email"
+    config:
+      inbox: "support@yourcompany.com"
+      response_signature: "AI Support Agent"
+      escalation_email: "human-support@yourcompany.com"
+  
+  - type: "crm"
+    system: "salesforce"
+    config:
+      instance_url: "https://yourcompany.salesforce.com"
+      sync_frequency: "realtime"
+      update_customer_records: true
+
+# Business Rules
+rules:
+  # When to escalate to human
+  escalation:
+    - condition: "confidence < 0.7"
+      action: "escalate_to_human"
+    
+    - condition: "keywords contains ['urgent', 'angry', 'lawsuit']"
+      action: "escalate_to_supervisor"
+    
+    - condition: "value > 10000"
+      action: "escalate_to_account_manager"
+  
+  # Auto-approvals
+  auto_approve:
+    - condition: "request_type == 'order_status'"
+      action: "provide_tracking_info"
+    
+    - condition: "request_type == 'password_reset'"
+      action: "send_reset_link"
+
+# Performance Monitoring
+monitoring:
+  metrics:
+    - "response_time"
+    - "resolution_rate"
+    - "customer_satisfaction_score"
+    - "escalation_rate"
+  
+  alerts:
+    - metric: "response_time"
+      threshold: 60  # seconds
+      action: "notify_admin"
+    
+    - metric: "escalation_rate"
+      threshold: 20  # percent
+      action: "review_performance"
+
+# Resource Optimization
+resource_optimization:
+  # How this agent frees up human resources
+  estimated_time_savings:
+    per_interaction: "15_minutes"
+    monthly_volume: 5000
+    total_monthly_savings: "1250_hours"
+  
+  cost_efficiency:
+    cost_per_ai_interaction: "$0.50"
+    cost_per_human_interaction: "$15.00"
+    monthly_cost_savings: "$72,500"
+
+# Privacy & Security
+security:
+  data_retention: "90_days"
+  pii_handling: "encrypt_and_anonymize"
+  access_logs: true
+  audit_trail: true
+  
+  compliance:
+    - "GDPR"
+    - "SOC2"
+    - "ISO27001"
+
+# Deployment
+deployment:
+  environment: "production"
+  region: "eu-west-1"
+  high_availability: true
+  auto_scaling:
+    min_instances: 2
+    max_instances: 10
+    scale_metric: "queue_depth"
+```
+
+## Configuration Examples
+
+### 1. Data Analysis Agent
+```yaml
+agent:
+  name: "DataAnalysisAgent"
+  description: "Real-time business intelligence and insights"
+
+prowess:
+  primary: "data_analysis_insights"
+
+skills:
+  - name: "data_processing"
+  - name: "statistical_analysis"
+  - name: "ml_forecasting"
+  - name: "nlp_query_understanding"
+  - name: "visualization_generation"
+
+integrations:
+  - type: "slack"
+    channels: ["#analytics", "#executive-team"]
+  
+  - type: "data_warehouse"
+    system: "snowflake"
+  
+  - type: "bi_tool"
+    system: "tableau"
+
+monitoring:
+  metrics:
+    - "query_response_time"
+    - "insight_accuracy"
+    - "user_adoption_rate"
+```
+
+### 2. Process Optimization Agent
+```yaml
+agent:
+  name: "ProcessOptimizationAgent"
+  description: "Workflow automation and optimization"
+
+prowess:
+  primary: "process_optimization"
+
+skills:
+  - name: "process_mining"
+  - name: "workflow_automation"
+  - name: "resource_optimization"
+
+integrations:
+  - type: "teams"
+    channels: ["Operations Team"]
+  
+  - type: "project_management"
+    system: "jira"
+  
+  - type: "erp"
+    system: "sap"
+
+rules:
+  auto_approve:
+    - condition: "amount < 1000"
+      action: "auto_approve_purchase"
+```
+
+### 3. Multi-Prowess Agent
+```yaml
+agent:
+  name: "ExecutiveAssistant"
+  description: "Comprehensive executive support agent"
+
+prowess:
+  primary: "process_optimization"
+  secondary:
+    - "data_analysis_insights"
+    - "customer_service_automation"
+
+skills:
+  - name: "nlp_understanding"
+  - name: "data_processing"
+  - name: "code_generation"
+  - name: "calendar_management"
+  - name: "email_management"
+
+integrations:
+  - type: "email"
+  - type: "calendar"
+  - type: "teams"
+  - type: "data_warehouse"
+```
+
+## Usage Instructions
+
+### 1. Customize Configuration
+```bash
+# Copy template
+cp config/agent-config.yaml.template config/my-agent-config.yaml
+
+# Edit configuration
+nano config/my-agent-config.yaml
+```
+
+### 2. Validate Configuration
+```bash
+# Validate configuration syntax
+python scripts/validate_config.py config/my-agent-config.yaml
+```
+
+### 3. Deploy Agent
+```bash
+# Deploy with configuration
+python scripts/deploy_agent.py --config config/my-agent-config.yaml
+```
+
+### 4. Monitor Performance
+```bash
+# View agent metrics
+python scripts/monitor_agent.py --agent CustomerServiceAgent
+```
+
+## Best Practices
+
+1. **Start Simple**: Begin with one prowess and few skills, expand gradually
+2. **Define Clear Rules**: Specify escalation and auto-approval criteria
+3. **Monitor Performance**: Track metrics to optimize configuration
+4. **Iterate**: Adjust configuration based on real-world usage
+5. **Security First**: Always enable encryption and audit trails
+6. **Privacy Compliance**: Configure data retention per regulations
+7. **Resource Planning**: Calculate expected load and provision accordingly
+
+## Troubleshooting
+
+### Common Issues
+
+**Issue**: Agent response time is slow
+**Solution**: Check `monitoring.metrics.response_time`, increase instances or optimize queries
+
+**Issue**: High escalation rate
+**Solution**: Review `rules.escalation` conditions, improve training data, lower confidence threshold
+
+**Issue**: Integration failures
+**Solution**: Verify credentials, check network connectivity, review API rate limits
